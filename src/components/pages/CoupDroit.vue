@@ -23,7 +23,7 @@ export default {
       videos: [
         {
           title: "Smash avec saut en ciseaux",
-          videoSrc: "/videos/coupdroit/forehead_scissor_jump.mp4",
+          videoSrc: require("@/videos/coupdroit/forehead_scissor_jump.mp4"),
           author: "rupeshp_bad",
           source: ""
         },
