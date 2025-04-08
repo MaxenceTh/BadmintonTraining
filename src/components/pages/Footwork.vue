@@ -23,25 +23,25 @@
       videos: [
         {
           title: "Déplacement après un smash",
-          videoSrc: "/videos/footwork/fast_after_a_smash.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/footwork/fast_after_a_smash.mp4`,
           author: "birdie_badminton",
           source: ""
         },
         {
           title: "Footwork",
-          videoSrc: "/videos/footwork/footwork1.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/footwork/footwork1.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Footwork",
-          videoSrc: "/videos/footwork/footwork2.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/footwork/footwork2.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Exercice en shadow",
-          videoSrc: "/videos/footwork/shadow_training.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/footwork/shadow_training.mp4`,
           author: "rupeshp_bad",
           source: ""
         }

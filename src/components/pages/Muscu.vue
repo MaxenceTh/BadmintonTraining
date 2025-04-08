@@ -23,13 +23,13 @@
       videos: [
         {
           title: "fentes bulgare",
-          videoSrc: "/videos/gym/gymExercice1.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/gym/gymExercice1.mp4`,
           author: "birdie_badminton",
           source: ""
         },
         {
           title: "Rotation de la hanche",
-          videoSrc: "/videos/gym/hips_rotation_exercise.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/gym/hips_rotation_exercise.mp4`,
           author: "birdie_badminton",
           source: ""
         },

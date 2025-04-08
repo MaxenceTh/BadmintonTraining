@@ -23,7 +23,7 @@
       videos: [
         {
           title: "Tactiques",
-          videoSrc: "/videos/tactique/match_tactics.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/tactique/match_tactics.mp4`,
           author: "rupeshp_bad",
           source: ""
         },

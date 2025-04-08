@@ -23,25 +23,25 @@ export default {
       videos: [
         {
           title: "Smash avec saut en ciseaux",
-          videoSrc: "/videos/coupdroit/forehead_scissor_jump.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/coupdroit/forehead_scissor_jump.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Coup droit en retard",
-          videoSrc: "/videos/coupdroit/late_forehead_cross_clear.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/coupdroit/late_forehead_cross_clear.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Puissance dans le smash",
-          videoSrc: "/videos/coupdroit/power_smash.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/coupdroit/power_smash.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Précision dans le smash",
-          videoSrc: "/videos/coupdroit/smash_accuracy.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/coupdroit/smash_accuracy.mp4`,
           author: "rupeshp_bad",
           source: ""
         }

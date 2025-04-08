@@ -17,13 +17,13 @@ export default {
       videos: [
         {
           title: "Améliorer son amortie au fond de court",
-          videoSrc: "https://maxenceth.github.io/BadmintonTraining/videos/revers/backhand_close.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}/videos/revers/backhand_close.mp4`,
           author: "birdie_badminton",
           source: ""
         },
         {
           title: "Qaund prendre son revers",
-          videoSrc: "/videos/revers/when_take_backhand.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}/videos/revers/when_take_backhand.mp4`,
           author: "birdie_badminton",
           source: ""
         },

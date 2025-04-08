@@ -23,25 +23,25 @@
       videos: [
         {
           title: "Deceptive Shoot",
-          videoSrc: "/videos/filet/deceptive_shoot.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/filet/deceptive_shoot.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Variations coup droit",
-          videoSrc: "/videos/filet/forehand_straight_drop.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/filet/forehand_straight_drop.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Variations revers",
-          videoSrc: "/videos/filet/forehead_straight_drop.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/filet/forehead_straight_drop.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "",
-          videoSrc: "/videos/filet/smooth_deception.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/filet/smooth_deception.mp4`,
           author: "rupeshp_bad",
           source: ""
         }

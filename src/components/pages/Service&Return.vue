@@ -23,19 +23,19 @@
       videos: [
         {
           title: "Service lobé",
-          videoSrc: "/videos/service/flick_servce.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/service/flick_servce.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Service retour",
-          videoSrc: "/videos/service/service_receive.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/service/service_receive.mp4`,
           author: "rupeshp_bad",
           source: ""
         },
         {
           title: "Service retour",
-          videoSrc: "/videos/service/service_receive2.mp4",
+          videoSrc: `${import.meta.env.BASE_URL}videos/service/service_receive2.mp4`,
           author: "rupeshp_bad",
           source: ""
         }
