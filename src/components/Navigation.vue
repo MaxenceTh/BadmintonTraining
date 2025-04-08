@@ -22,13 +22,16 @@
 
             <!-- Menu desktop -->
             <ul class="hidden md:flex space-x-4 text-white">
-                <li><router-link to="/revers">Revers</router-link></li>
-                <li><router-link to="/coup-droit">Coup Droit</router-link></li>
-                <li><router-link to="/service&retour">Service&Retour</router-link></li>
-                <li><router-link to="/filet">Filet</router-link></li>
-                <li><router-link to="/footwork">Footwork</router-link></li>
-                <li><router-link to="/tactique">Tactique</router-link></li>
-                <li><router-link to="/musculation">Musculation</router-link></li>
+                <li class="py-2"><router-link to="/revers">Revers</router-link></li>
+                <li class="py-2"><router-link to="/coup-droit">Coup Droit</router-link></li>
+                <li class="py-2"><router-link to="/service&retour">Service&Retour</router-link></li>
+                <li class="py-2"><router-link to="/filet">Filet</router-link></li>
+                <li class="py-2"><router-link to="/footwork">Footwork</router-link></li>
+                <li class="py-2"><router-link to="/tactique">Tactique</router-link></li>
+                <li class="py-2"><router-link to="/musculation">Musculation</router-link></li>
+                <li class="py-2 px-2 bg-indigo-600 text-white rounded-lg font-semibold 
+               hover:bg-indigo-500 transition-all duration-300 
+               shadow-lg hover:shadow-indigo-500/50"><router-link to="/entrainement">Entraînement</router-link></li>
             </ul>
         </div>
 
@@ -44,6 +47,9 @@
                 <li><router-link @click="closeMenu" to="/footwork">Footwork</router-link></li>
                 <li><router-link @click="closeMenu" to="/tactique">Tactique</router-link></li>
                 <li><router-link @click="closeMenu" to="/musculation">Musculation</router-link></li>
+                <li class="py-2 px-2 bg-indigo-600 text-white rounded-lg font-semibold 
+               hover:bg-indigo-500 transition-all duration-300 
+               shadow-lg hover:shadow-indigo-500/50"><router-link @click="closeMenu" to="/entrainement">Entraînement</router-link></li>
 
 
                 <button @click="closeMenu"

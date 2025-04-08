@@ -7,6 +7,8 @@ import Tactics from '../components/pages/Tactics.vue';
 import Filet from '../components/pages/Filet.vue';
 import Muscu from '../components/pages/Muscu.vue';
 import Accueil from '../components/Accueil.vue';
+import Timer from '../components/Entrainement/Timer.vue';
+import Entrainement from '../components/pages/Entrainement.vue';
 
 const routes = [
   { path : '/', component: Accueil },
@@ -17,6 +19,8 @@ const routes = [
   { path: '/service&retour', component: Service },
   { path: '/tactique', component: Tactics },
   { path: '/musculation', component: Muscu },
+  { path: '/timer', component: Timer },
+  { path: '/entrainement', component: Entrainement },
 ];
 
 const router = createRouter({

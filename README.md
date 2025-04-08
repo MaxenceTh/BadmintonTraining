@@ -147,3 +147,51 @@ L'application utilise le mode histoire (`createWebHistory`), ce qui permet :
 - Des URLs propres sans '#'
 - Une navigation plus naturelle
 - Un meilleur référencement
+
+
+
+## Composant Timer
+
+Le Timer est un composant d'entraînement interactif qui permet de gérer des séances d'intervalles.
+
+### Fonctionnalités
+
+- **Préréglages rapides** :
+  - 30/30 (30s travail / 30s repos)
+  - 45/15 (45s travail / 15s repos)
+  - 20/10 (20s travail / 10s repos)
+  - 40/20 (40s travail / 20s repos)
+
+- **Configuration personnalisée** :
+  - Temps de travail ajustable
+  - Temps de repos ajustable
+  - Nombre de séries configurable
+
+- **Feedback sonore** :
+  - Bip aigu au début du temps de travail
+  - Bip grave à la fin du temps de travail
+  - Bips courts pendant le compte à rebours
+
+### Utilisation
+
+1. **Configuration** :
+   - Sélectionnez un préréglage ou
+   - Définissez manuellement vos paramètres
+
+2. **Contrôles** :
+   - Démarrer : Lance le timer avec un compte à rebours de 5 secondes
+   - Pause : Met en pause le timer
+   - Reset : Réinitialise tous les paramètres
+
+3. **Affichage** :
+   - Temps restant au format MM:SS
+   - État actuel (PRÉPARATION/TRAVAIL/REPOS)
+   - Numéro de la série en cours
+
+### Implémentation technique
+
+- Utilisation de l'API Web Audio pour les signaux sonores
+- État géré avec Vue.js Composition API (ref)
+- Transitions fluides entre les phases
+- Nettoyage automatique des intervalles lors du démontage
+
