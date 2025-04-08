@@ -6,4 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [vue(),tailwindcss(),],
   base: "/BadmintonTraining/",
+  server: {
+    historyApiFallback: true, // Redirige toutes les requêtes vers index.html
+  },
 })
