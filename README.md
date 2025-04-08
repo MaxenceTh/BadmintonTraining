@@ -195,3 +195,159 @@ Le Timer est un composant d'entraînement interactif qui permet de gérer des s�
 - Transitions fluides entre les phases
 - Nettoyage automatique des intervalles lors du démontage
 
+
+
+## Compilation et Déploiement
+
+### Structure de Build
+Lors de la compilation (`npm run build`), le projet est transformé en fichiers statiques :
+```
+dist/
+├── index.html              # Point d'entrée HTML
+├── assets/
+│   ├── index-[hash].js    # JavaScript compilé
+│   ├── index-[hash].css   # CSS compilé
+│   └── ...                # Autres assets (images, etc.)
+```
+
+### Processus de Compilation
+1. **Transformation des Composants**
+   - Les fichiers `.vue` sont compilés en JavaScript
+   - Les templates sont convertis en fonctions de rendu
+   - Le CSS est extrait et optimisé
+   - Les assets sont hashés pour la gestion du cache
+
+2. **Optimisations**
+   - Minification du code
+   - Tree-shaking (élimination du code non utilisé)
+   - Splitting des chunks
+   - Compression des assets
+
+### Différences Environnements
+
+#### Développement (`npm run dev`)
+- Serveur de développement Vite actif
+- Hot Module Replacement (HMR)
+- Compilation à la demande
+- Source maps pour le débogage
+
+#### Production (Build)
+- Fichiers statiques optimisés
+- Pas de serveur Node.js requis
+- Performance optimisée
+- Taille réduite
+
+### Déploiement
+
+Le projet compilé peut être déployé sur n'importe quel serveur web statique :
+
+1. **GitHub Pages**
+```bash
+npm run deploy
+```
+
+2. **Serveur Web Traditionnel (Apache/Nginx)**
+- Copier le contenu du dossier `dist`
+- Configurer les redirections vers `index.html`
+
+#### Configuration Apache (.htaccess)
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+
+#### Configuration Nginx
+```nginx
+location / {
+    try_files $uri $uri/ /index.html;
+}
+```
+
+### Notes Importantes
+- L'application est une SPA (Single Page Application)
+- Tout le routing est géré côté client
+- Les fichiers statiques peuvent être mis en cache par le navigateur
+- Le serveur doit rediriger toutes les routes vers `index.html`
+
+
+
+## Configuration Vite
+
+La configuration de Vite (`vite.config.js`) comprend plusieurs optimisations et mesures de sécurité :
+
+### Sécurité
+```javascript
+server: {
+  headers: {
+    'X-Frame-Options': 'DENY',           // Prévient le clickjacking
+    'X-Content-Type-Options': 'nosniff', // Prévient MIME-type sniffing
+    'X-XSS-Protection': '1; mode=block', // Protection XSS
+    'Strict-Transport-Security': 'max-age=31536000' // Force HTTPS
+  }
+}
+```
+
+### Optimisations de Build
+```javascript
+build: {
+  minify: 'terser',      // Minification du code
+  sourcemap: false,      // Désactivé en production pour la sécurité
+  
+  rollupOptions: {
+    output: {
+      manualChunks: {    // Séparation du code
+        'vendor': ['vue', 'vue-router'],
+        'tailwind': ['tailwindcss']
+      }
+    }
+  },
+  
+  // Limites et compressions
+  assetsInlineLimit: 4096,          // Inline les fichiers < 4kb
+  chunkSizeWarningLimit: 500,       // Alerte si chunks > 500kb
+  
+  terserOptions: {
+    compress: {
+      drop_console: true,           // Supprime console.log
+      drop_debugger: true          // Supprime debugger
+    }
+  }
+}
+```
+
+### Dépendances
+```javascript
+optimizeDeps: {
+  include: ['vue', 'vue-router']    // Pré-bundling des dépendances
+}
+```
+
+### Base URL
+```javascript
+base: "/BadmintonTraining/"         // URL de base pour GitHub Pages
+```
+
+### Pourquoi ces configurations ?
+
+1. **Sécurité** :
+   - Protection contre les attaques XSS
+   - Prévention du clickjacking
+   - Forçage HTTPS
+   - Headers de sécurité essentiels
+
+2. **Performance** :
+   - Minification du code
+   - Chunking intelligent des dépendances
+   - Optimisation des assets
+   - Suppression du code de debug
+
+3. **Déploiement** :
+   - Configuration pour GitHub Pages
+   - Gestion optimisée des routes
+   - Compression des assets
