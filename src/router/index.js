@@ -9,6 +9,7 @@ import Muscu from '../components/pages/Muscu.vue';
 import Accueil from '../components/Accueil.vue';
 import Timer from '../components/Entrainement/Timer.vue';
 import Entrainement from '../components/pages/Entrainement.vue';
+import Shadow from '../components/Entrainement/Shadow.vue';
 
 const routes = [
   { path : '/', component: Accueil },
@@ -21,6 +22,7 @@ const routes = [
   { path: '/musculation', component: Muscu },
   { path: '/timer', component: Timer },
   { path: '/entrainement', component: Entrainement },
+  { path: '/shadow', component: Shadow },
 ];
 
 const router = createRouter({
