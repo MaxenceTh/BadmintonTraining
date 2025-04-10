@@ -1,36 +1,35 @@
 <template>
-    <div class="p-6">
-      <h1 class="text-3xl font-bold mb-4">Tips tactiques</h1>
-      <VideoPlayer 
-        v-for="(video, index) in videos" 
-        :key="index"
-        :title="video.title"
-        :videoSrc="video.videoSrc"
-        :author="video.author"
-        :source="video.source"
-      />
-      
-    </div>
-  </template>
-  
-  <script>
- import VideoPlayer from '../VideoPlayer.vue';
-  
- export default {
-  components: { VideoPlayer },
-  data() {
-    return {
-      videos: [
-        {
-          title: "Tactiques",
-          videoSrc: `${import.meta.env.BASE_URL}videos/tactique/match_tactics.mp4`,
-          author: "rupeshp_bad",
-          source: ""
-        },
-       
-      ]
-    };
+ 
+
+  <TemplatePage
+    title="Tactiques de Match"
+    description="Découvrez les stratégies et tactiques essentielles pour améliorer votre jeu"
+    :videos="videos"
+  />
+
+</template>
+
+<script setup>
+import TemplatePage from '../TemplatePage.vue';
+
+const videos = [
+  {
+    title: "Tactiques de Match",
+    videoSrc: `${import.meta.env.BASE_URL}videos/tactique/match_tactics.mp4`,
+    author: "rupeshp_bad",
+    source: "",
+    description: "Stratégies essentielles pour dominer vos matchs"
   }
-};
-  </script>
-  
+];
+</script>
+
+<style scoped>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.min-h-screen {
+  animation: fadeIn 0.8s ease-out;
+}
+</style>
