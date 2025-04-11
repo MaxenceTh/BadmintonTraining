@@ -1,6 +1,28 @@
 <template>
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-white mb-8">Assistant d'Entraînement IA</h1>
+
+        <!-- Configuration API -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-white mb-4">Configuration API</h2>
+            <div class="mb-4">
+                <label class="block text-white mb-2">Clé API HuggingFace:</label>
+                <input 
+                    type="password" 
+                    v-model="apiKey" 
+                    class="w-full bg-gray-700 text-white rounded p-2"
+                    placeholder="Entrez votre clé API"
+                />
+            </div>
+            <button 
+                @click="updateApiKey" 
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                Mettre à jour la clé API
+            </button>
+            <p v-if="apiKeyStatus" class="mt-2 text-sm" :class="apiKeyStatus.color">
+                {{ apiKeyStatus.message }}
+            </p>
+        </div>
         
         <!-- Compteur de générations -->
         <div class="bg-blue-900 rounded-lg p-4 mb-6">
@@ -25,12 +47,19 @@
 
             <div class="mb-4">
                 <label class="block text-white mb-2">Durée (minutes):</label>
-                <input type="number" v-model="duration" class="w-full bg-gray-700 text-white rounded p-2" min="30"
-                    max="180" />
+                <input 
+                    type="number" 
+                    v-model="duration" 
+                    class="w-full bg-gray-700 text-white rounded p-2" 
+                    min="30"
+                    max="180" 
+                />
             </div>
 
-            <button @click="generateWorkout" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                :disabled="loading">
+            <button 
+                @click="generateWorkout" 
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                :disabled="loading || !hf">
                 {{ loading ? 'Génération en cours...' : 'Générer un entraînement' }}
             </button>
 
@@ -45,7 +74,6 @@
     </div>
 </template>
 
-
 <script>
 import { HfInference } from '@huggingface/inference'
 
@@ -58,11 +86,20 @@ export default {
             workout: null,
             loading: false,
             error: null,
-            hf: null
+            hf: null,
+            apiKey: '',
+            apiKeyStatus: null,
+            monthlyCount: 0,
+            monthKey: new Date().toISOString().slice(0, 7)
         }
     },
     created() {
-        this.hf = new HfInference(import.meta.env.VITE_HUGGINGFACE_API_KEY)
+        const savedKey = localStorage.getItem('hf_api_key')
+        if (savedKey) {
+            this.apiKey = savedKey
+            this.initializeHf(savedKey)
+        }
+        this.loadMonthlyCount()
     },
     computed: {
         formattedWorkout() {
@@ -71,7 +108,62 @@ export default {
         }
     },
     methods: {
+        initializeHf(key) {
+            try {
+                this.hf = new HfInference(key)
+                this.apiKeyStatus = {
+                    message: 'Clé API configurée avec succès',
+                    color: 'text-green-400'
+                }
+            } catch (err) {
+                this.apiKeyStatus = {
+                    message: 'Erreur de configuration de la clé API',
+                    color: 'text-red-400'
+                }
+                console.error(err)
+            }
+        },
+        updateApiKey() {
+            if (!this.apiKey) {
+                this.apiKeyStatus = {
+                    message: 'Veuillez entrer une clé API',
+                    color: 'text-red-400'
+                }
+                return
+            }
+            localStorage.setItem('hf_api_key', this.apiKey)
+            this.initializeHf(this.apiKey)
+        },
+        loadMonthlyCount() {
+            const currentMonth = new Date().toISOString().slice(0, 7)
+            const savedData = localStorage.getItem('workoutGeneration')
+            if (savedData) {
+                const data = JSON.parse(savedData)
+                if (data.month === currentMonth) {
+                    this.monthlyCount = data.count
+                } else {
+                    this.monthlyCount = 0
+                    this.saveMonthlyCount()
+                }
+            }
+        },
+        saveMonthlyCount() {
+            localStorage.setItem('workoutGeneration', JSON.stringify({
+                month: this.monthKey,
+                count: this.monthlyCount
+            }))
+        },
         async generateWorkout() {
+            if (!this.hf) {
+                this.error = "Veuillez configurer votre clé API d'abord"
+                return
+            }
+
+            if (this.monthlyCount >= 30) {
+                this.error = "Limite mensuelle de générations atteinte"
+                return
+            }
+
             this.loading = true
             this.error = null
 
@@ -123,13 +215,17 @@ export default {
                         temperature: 0.7
                     }
                 })
+                
                 const responseText = response.generated_text
-                this.workout = responseText.substring(responseText.indexOf(`Programme d'entraînement: `))
-
+                this.workout = responseText.substring(responseText.indexOf('Programme d\'entraînement:'))
+                
                 if (!this.workout) {
-                    // Si on ne trouve pas le début de la réponse, prendre tout le texte après le prompt
                     this.workout = responseText.substring(prompt.length).trim()
                 }
+
+                // Incrémenter le compteur après une génération réussie
+                this.monthlyCount++
+                this.saveMonthlyCount()
             } catch (err) {
                 this.error = "Erreur lors de la génération de l'entraînement."
                 console.error(err)
